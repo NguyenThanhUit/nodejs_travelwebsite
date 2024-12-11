@@ -1,7 +1,8 @@
 name: devopsProject
 
 on:
-  workflow_dispatch: # Allows manual triggering of the workflow
+  workflow_dispatch:
+
 env:
   AWS_REGION: us-east-1
 
@@ -41,29 +42,15 @@ jobs:
       - name: Code Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Docker
-        uses: docker/setup-buildx-action@v2
-
-      - name: Print AWS region and registry info
-        run: |
-          echo "AWS Region: ${{ env.AWS_REGION }}"
-          echo "Registry: ${{ secrets.REGISTRY }}"
-          echo "Repository: devopsproject"
-
-      - name: Upload image to ECR
+      - name: Build & Upload image to ECR
         uses: appleboy/docker-ecr-action@master
         with:
           access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           registry: ${{ secrets.REGISTRY }}
-          repo: devopsproject
+          repo: actapp
           region: ${{ env.AWS_REGION }}
-          auto_tag: true
+          tags: latest,${{ github.run_number }}
           daemon_off: false
           dockerfile: ./Dockerfile
           context: ./
-          
-      - name: Confirm image push status
-        run: |
-          echo "Image push process completed."
-          echo "Check ECR to confirm image upload."
