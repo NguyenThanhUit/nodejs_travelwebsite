@@ -8,7 +8,7 @@ env:
   ECR_REPOSITORY: devopsproject
   ECR_SERVICE: devopsproject-svc
   ECR_CLUSTER: devopsproject-app
-  ECR_TASK_DEFINITION: aws-file/taskdif.json
+  ECR_TASK_DEFINITION: ./aws-file/taskdif.json
   CONTAINER_NAME: devopsproject
 
 jobs:
