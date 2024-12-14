@@ -24,6 +24,27 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Set up environment variables
+        run: |
+            echo "PORT=3001" >> .env
+            echo "NODE_ENV=development" >> .env
+            echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+            echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+            echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+            echo "DB_SERVER=${{ secrets.DB_SERVER }}" >> .env
+            echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+            echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+            echo "DB_DIALECT=${{ secrets.DB_DIALECT }}" >> .env
+            echo "DB_SSL=${{ secrets.DB_SSL }}" >> .env
+            echo "DB_CONNECTION_TIMEOUT=${{ secrets.DB_CONNECTION_TIMEOUT }}" >> .env
+            echo "SESSION_SECRET=${{ secrets.SESSION_SECRET }}" >> .env
+            echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env
+            echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
+  
+      - name: Verify .env File
+        run: cat .env
+  
+
       - name: Setup SonarQube
         uses: warchant/setup-sonar-scanner@v7
 
