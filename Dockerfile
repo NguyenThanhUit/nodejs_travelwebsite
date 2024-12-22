@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-COPY .env /app/.env
+COPY .env /app/
 
 
 
